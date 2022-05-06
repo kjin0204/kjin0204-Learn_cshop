@@ -1,0 +1,32 @@
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.exe
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.deps.json
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.json
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.dev.json
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.dll
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\ref\Algorithm.dll
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.pdb
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.AssemblyReference.cache
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfoInputs.cache
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfo.cs
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.CoreCompileInputs.cache
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.dll
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\ref\Algorithm.dll
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.pdb
+C:\Users\hyrong\source\repos\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.genruntimeconfig.cache
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.AssemblyReference.cache
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.GeneratedMSBuildEditorConfig.editorconfig
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfoInputs.cache
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfo.cs
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.CoreCompileInputs.cache
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.dll
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\ref\Algorithm.dll
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.pdb
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.exe
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.deps.json
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.json
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.dev.json
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.dll
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\ref\Algorithm.dll
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.pdb
+Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.genruntimeconfig.cache
