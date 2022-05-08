@@ -9,8 +9,8 @@ namespace Algorithm
 
     class MyList<T>
     {
-        const int DEFAULT_SIZE = 1;
-        T[] _data = new T[DEFAULT_SIZE];
+        const int DEFAULTSize = 1;
+        T[] _data = new T[DEFAULTSize];
 
         public int count = 0; //사용중인 데이터 개수
         public int capacity { get { return _data.Length; } } // 예약된 데이터 개수

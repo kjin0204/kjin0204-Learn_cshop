@@ -19,7 +19,11 @@ namespace Algorithm
 
 
             Board board = new Board();
-            board.Initialize(boardSize);
+            Player player = new Player();
+            board.Initialize(boardSize, player);
+            player.Initalize(1, 1, board.Size - 2, board.Size - 2, board);
+
+
 
             while (true)
             {
@@ -27,9 +31,15 @@ namespace Algorithm
                 int currentTick = System.Environment.TickCount; //시스템이 시작된 이후 경과된 시간
                 if (currentTick - lastTick < WAIT_TICK)
                     continue;
-
+                int deltaTick = currentTick - lastTick;
                 lastTick = currentTick;
                 #endregion
+
+                //입력
+
+                //로직
+                player.Update(deltaTick);
+                //랜더링
 
 
                 Console.SetCursorPosition(0, 0); //콘솔 커서위치

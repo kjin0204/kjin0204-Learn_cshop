@@ -10,8 +10,10 @@ namespace Algorithm
     {
 
         const char CIRCLE = '\u25cf'; // 원
-        int _size = 0;
-        TileType[,] _tile = null;
+        public int Size { get; private set; }
+        public TileType[,] Tile { get; private set; }
+
+        Player _player;
 
         public enum TileType
         {
@@ -19,13 +21,15 @@ namespace Algorithm
             Wall
         }
 
-        public void Initialize(int size)
+        public void Initialize(int size, Player player)
         {
             if (size % 2 == 0)
                 return;
 
-            this._size = size;
-            _tile = new TileType[_size, size];
+            this.Size = size;
+            Tile = new TileType[Size, size];
+
+            _player = player;
 
             //GenerateByBinaryTree();
             GenerateBySiedWinder();
@@ -36,46 +40,46 @@ namespace Algorithm
         {
 
             //길을 막아버림
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
                     if (x % 2 == 0 || y % 2 == 0)
-                        _tile[y, x] = TileType.Wall;
+                        Tile[y, x] = TileType.Wall;
                     else
-                        _tile[y, x] = TileType.Empty;
+                        Tile[y, x] = TileType.Empty;
                 }
             }
 
             Random rand = new Random();
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
                 int count = 1;
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
-                    if (x == 0 | x == _size - 1 | y == 0 | y == _size - 1)
-                        _tile[y, x] = TileType.Wall;
+                    if (x == 0 | x == Size - 1 | y == 0 | y == Size - 1)
+                        Tile[y, x] = TileType.Wall;
 
                     if (x % 2 == 0 | y % 2 == 0)
                         continue;
 
-                    if (y == _size - 2 && x == _size - 2)
+                    if (y == Size - 2 && x == Size - 2)
                         continue;
 
-                    if (x == _size - 2)
-                        _tile[y + 1, x] = TileType.Empty;
+                    if (x == Size - 2)
+                        Tile[y + 1, x] = TileType.Empty;
 
-                    if (y == _size - 2)
-                        _tile[y, x + 1] = TileType.Empty;
+                    if (y == Size - 2)
+                        Tile[y, x + 1] = TileType.Empty;
 
                     if (rand.Next(0,2) == 0)
                     {
-                        _tile[y, x + 1] = TileType.Empty;
+                        Tile[y, x + 1] = TileType.Empty;
                         count++;
                     }
                     else
                     {
-                        _tile[y + 1 , x - rand.Next(0, count) * 2] = TileType.Empty;
+                        Tile[y + 1 , x - rand.Next(0, count) * 2] = TileType.Empty;
                         count = 1;
                     }
                 }
@@ -86,48 +90,48 @@ namespace Algorithm
         void GenerateByBinaryTree()
         {
             //길을 막아버림
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
                     if (x % 2 == 0 || y % 2 == 0)
-                        _tile[y, x] = TileType.Wall;
+                        Tile[y, x] = TileType.Wall;
                     else
-                        _tile[y, x] = TileType.Empty;
+                        Tile[y, x] = TileType.Empty;
                 }
             }
 
             //랜덤으로 위 혹은 오른쪼긍로 길을 뚫음
             Random rand = new Random();
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
-                    if (x == 0 || x == _size - 1 || y == 0 || y == _size - 1)
-                        _tile[y, x] = TileType.Wall;
+                    if (x == 0 || x == Size - 1 || y == 0 || y == Size - 1)
+                        Tile[y, x] = TileType.Wall;
 
                     if (x % 2 == 0 || y % 2 == 0)
                         continue;
 
-                    if (y == _size - 2)
+                    if (y == Size - 2)
                     {
-                        _tile[y, x + 1] = TileType.Empty;
+                        Tile[y, x + 1] = TileType.Empty;
                         continue;
                     }
 
-                    if (x == _size - 2)
+                    if (x == Size - 2)
                     {
-                        _tile[y + 1, x] = TileType.Empty;
+                        Tile[y + 1, x] = TileType.Empty;
                         continue;
                     }
 
                     if (rand.Next(0, 2) == 0)
                     {
-                        _tile[y, x + 1] = TileType.Empty;
+                        Tile[y, x + 1] = TileType.Empty;
                     }
                     else
                     {
-                        _tile[y + 1, x] = TileType.Empty;
+                        Tile[y + 1, x] = TileType.Empty;
                     }
                 }
             }
@@ -137,11 +141,14 @@ namespace Algorithm
         {
             ConsoleColor prevColor = Console.ForegroundColor;
 
-            for (int y = 0; y < _size; y++)
+            for (int y = 0; y < Size; y++)
             {
-                for (int x = 0; x < _size; x++)
+                for (int x = 0; x < Size; x++)
                 {
-                    Console.ForegroundColor = GetTileColor(_tile[y, x]);
+                    if(_player.PosX == x && _player.PosY == y)
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                    else
+                        Console.ForegroundColor = GetTileColor(Tile[y, x]);
                     Console.Write(CIRCLE);
                 }
                 Console.WriteLine();
