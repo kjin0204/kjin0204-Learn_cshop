@@ -13,6 +13,8 @@ namespace Algorithm
         public int Size { get; private set; }
         public TileType[,] Tile { get; private set; }
 
+        public int DestY { get; private set; }
+        public int DestX { get; private set; }
         Player _player;
 
         public enum TileType
@@ -28,6 +30,9 @@ namespace Algorithm
 
             this.Size = size;
             Tile = new TileType[Size, size];
+
+            DestX = size - 2;
+            DestY = size - 2;
 
             _player = player;
 
@@ -72,14 +77,14 @@ namespace Algorithm
                     if (y == Size - 2)
                         Tile[y, x + 1] = TileType.Empty;
 
-                    if (rand.Next(0,2) == 0)
+                    if (rand.Next(0, 2) == 0)
                     {
                         Tile[y, x + 1] = TileType.Empty;
                         count++;
                     }
                     else
                     {
-                        Tile[y + 1 , x - rand.Next(0, count) * 2] = TileType.Empty;
+                        Tile[y + 1, x - rand.Next(0, count) * 2] = TileType.Empty;
                         count = 1;
                     }
                 }
@@ -145,8 +150,10 @@ namespace Algorithm
             {
                 for (int x = 0; x < Size; x++)
                 {
-                    if(_player.PosX == x && _player.PosY == y)
+                    if (_player.PosX == x && _player.PosY == y)
                         Console.ForegroundColor = ConsoleColor.Blue;
+                    else if (DestX == x && DestY == y)
+                        Console.ForegroundColor = ConsoleColor.Yellow;
                     else
                         Console.ForegroundColor = GetTileColor(Tile[y, x]);
                     Console.Write(CIRCLE);
