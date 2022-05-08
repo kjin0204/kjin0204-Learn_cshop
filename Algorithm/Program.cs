@@ -7,16 +7,21 @@ namespace Algorithm
         static void Main(string[] args)
         {
 
-            Board_linkedList board = new Board_linkedList();
-            board.Initialize();
+            Board_linkedList boardtest = new Board_linkedList();
+            boardtest.Initialize();
 
-            Console.CursorVisible = false;
+
+            Console.CursorVisible = false; //커서 안보이게 하기위함.
 
             const int WAIT_TICK = 1000 / 30;
-            const char CIRCLE = '\u25cf'; // 원
             int lastTick = 0;
+            int boardSize = 25;
 
-            while(true)
+
+            Board board = new Board();
+            board.Initialize(boardSize);
+
+            while (true)
             {
                 #region 프레임 관리
                 int currentTick = System.Environment.TickCount; //시스템이 시작된 이후 경과된 시간
@@ -27,17 +32,9 @@ namespace Algorithm
                 #endregion
 
 
-                Console.SetCursorPosition(0, 0);
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.SetCursorPosition(0, 0); //콘솔 커서위치
+                board.Render();
 
-                for(int i = 0; i< 25; i++)
-                {
-                    for (int j = 0; j < 25; j++)
-                    {
-                        Console.Write(CIRCLE);
-                    }
-                    Console.WriteLine();
-                }
             }
         }
     }

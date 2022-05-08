@@ -30,3 +30,19 @@ Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algor
 Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\ref\Algorithm.dll
 Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.pdb
 Z:\bowoo\1.개인\2. C# 학습\소스\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.genruntimeconfig.cache
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.exe
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.deps.json
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.json
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.dev.json
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.dll
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\ref\Algorithm.dll
+D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.pdb
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.AssemblyReference.cache
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.GeneratedMSBuildEditorConfig.editorconfig
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfoInputs.cache
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfo.cs
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.CoreCompileInputs.cache
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.dll
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\ref\Algorithm.dll
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.pdb
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.genruntimeconfig.cache
