@@ -39,9 +39,8 @@ namespace Algorithm
 
                 //로직
                 player.Update(deltaTick);
+
                 //랜더링
-
-
                 Console.SetCursorPosition(0, 0); //콘솔 커서위치
                 board.Render();
 

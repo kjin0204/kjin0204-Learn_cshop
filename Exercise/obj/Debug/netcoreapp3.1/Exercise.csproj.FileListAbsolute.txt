@@ -1,0 +1,14 @@
+D:\4.learn\Algorithm\Exercise\bin\Debug\netcoreapp3.1\Exercise.exe
+D:\4.learn\Algorithm\Exercise\bin\Debug\netcoreapp3.1\Exercise.deps.json
+D:\4.learn\Algorithm\Exercise\bin\Debug\netcoreapp3.1\Exercise.runtimeconfig.json
+D:\4.learn\Algorithm\Exercise\bin\Debug\netcoreapp3.1\Exercise.runtimeconfig.dev.json
+D:\4.learn\Algorithm\Exercise\bin\Debug\netcoreapp3.1\Exercise.dll
+D:\4.learn\Algorithm\Exercise\bin\Debug\netcoreapp3.1\Exercise.pdb
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.csproj.AssemblyReference.cache
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.GeneratedMSBuildEditorConfig.editorconfig
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.AssemblyInfoInputs.cache
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.AssemblyInfo.cs
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.csproj.CoreCompileInputs.cache
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.dll
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.pdb
+D:\4.learn\Algorithm\Exercise\obj\Debug\netcoreapp3.1\Exercise.genruntimeconfig.cache
