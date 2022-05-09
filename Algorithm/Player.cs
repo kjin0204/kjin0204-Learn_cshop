@@ -54,10 +54,10 @@ namespace Algorithm
             int[] foundY = new int[4] { -1, 0, 1, 0 };
             int[] foundX = new int[4] { 0, -1, 0, 1 };
 
-            int[,] found = new int[_board.Size, _board.Size];
+            int[,] found = new int[_board.Size, _board.Size]; //길을 한번 찾았는지 확인 하는변수
             int[,] found2 = new int[_board.Size, _board.Size];
-            int[,] distance = new int[_board.Size, _board.Size];
-            Pos[,] parent = new Pos[_board.Size, _board.Size];
+            int[,] distance = new int[_board.Size, _board.Size]; //목적지 깊이 저장
+            Pos[,] parent = new Pos[_board.Size, _board.Size]; //현재 위치의 전 위치를 저장
             Pos[,] parent2 = new Pos[_board.Size, _board.Size];
 
             Queue<Pos> que = new Queue<Pos>();
