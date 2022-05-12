@@ -11,9 +11,9 @@ namespace Algorithm
 
     class Pos
     {
-        public Pos(int posY, int posX) { this.PosY = posY; this.PosX = posX; }
-        public int PosY { get; set; }
-        public int PosX { get; set; }
+        public Pos(int posY, int posX) { this.Y = posY; this.X = posX; }
+        public int Y { get; set; }
+        public int X { get; set; }
 
     }
 
@@ -44,10 +44,129 @@ namespace Algorithm
             _board = board;
 
             //rightHandle();
-            BFS();
+            AStar();
         }
 
+        class PQNode : IComparable<PQNode>
+        {
+            public Pos pos;
+            public int F;
+            public int G;
+            public int X;
+            public int Y;
 
+            public int CompareTo(PQNode other)
+            {
+                if (F == other.F)
+                    return 0;
+                return F < other.F ? 1 : -1;
+            }
+        }
+
+        //A*길찾기
+        void AStar()
+        {
+            //점수 매기기(가산점)
+            // F = G + H
+            // F = 최종 점수 (작을 수록 좋음, 경로에 따라 달라짐)
+            // G = 시작점에서 해당 좌표까지 이동하는데 드는 비용(작을수록 좋음, 경로에 따라 달라짐)
+            // H = 목적지에서 얼마나 가까운지( 작을수록 좋음, 고정)
+
+            // (Y,X) 이미 방문했는지 여부(방문 closed 상태)
+            bool[,] closed = new bool[_board.Size, _board.Size];
+
+            //(Y,X)  한번이라도 발견했는지
+            //발견x => MaxValue
+            //발견O => F = G + H;
+            int[,] open = new int[_board.Size, _board.Size];
+            for (int y = 0; y < _board.Size; y++)
+                for (int x = 0; x < _board.Size; x++)
+                    open[y, x] = int.MaxValue;
+
+            //시작점 발견(예약 진행)
+            open[PosY, PosX] = Math.Abs(_board.DestY - PosY) + Math.Abs(_board.DestX - PosX);
+            PriorityQueue<PQNode> q = new PriorityQueue<PQNode>();
+
+            q.Push(new PQNode() {F = open[PosY, PosX],G = 0,Y = PosY,X = PosX });
+
+            Pos[,] parent = new Pos[_board.Size, _board.Size];
+            parent[PosY, PosX] = new Pos(PosY, PosX);
+
+            int[] foundY = new int[4] { -1, 0, 1, 0 };
+            int[] foundX = new int[4] { 0, -1, 0, 1 };
+            int[] cost = new int[4] { 1, 1, 1, 1 };
+
+            while (q.Count > 0)
+            {
+                PQNode node = new PQNode();
+                //제일좋은 후보를 찾는다
+                node = q.Pop();
+
+                //동일한 좌표를 여러 경로로 찾아서, 더 빠른 경로로 인해서 이미 방문된 경우 스킵.
+                if (closed[node.Y, node.X])
+                    continue;
+
+                closed[node.Y, node.X] = true;
+
+                if (_board.DestY == node.Y && _board.DestX == node.X)
+                    break;
+
+
+                int g = 0;
+                int h = 0;
+                int f = 0;
+
+                for (int i = 0; i < foundY.Length; i++)
+                {
+                    int nextY = node.Y + foundY[i];
+                    int nextX = node.X + foundX[i];
+
+                    //유효범위를 벗어났을때
+                    if (nextX < 0 || nextX >= _board.Size || nextY < 0 || nextY >= _board.Size)
+                        continue;
+                    //벽일때
+                    if (_board.Tile[nextY, nextX] == Board.TileType.Wall)
+                        continue;
+                    //이미 방문했을때
+                    if (closed[nextY, nextX])
+                        continue;
+
+                        g = node.G + cost[i];
+                        h = Math.Abs(_board.DestY - nextY) + Math.Abs(_board.DestX - nextX);
+                        f = g + h;
+
+                        // 다른 경로에서 더 빠른 길 이미 찾았으면 스킵
+                        if (open[nextY, nextX] < f)
+                            continue;
+
+                        //예약진행
+                        open[nextY, nextX] = f;
+                        q.Push(new PQNode() { F = f, G = g, X = nextX, Y = nextY });
+                        parent[nextY, nextX] = new Pos(node.Y, node.X);
+
+                    Debug.WriteLine($"현재: nodeY: {node.Y},nodeX: {node.X},다음 : nextY: {nextY},nextX: {nextX}, g: {g}, h:{h}, f{f}");
+                }
+            }
+
+            CalcPathFromParent(parent);
+        }
+        void CalcPathFromParent(Pos[,] parent)
+        {
+            int y = _board.DestY;
+            int x = _board.DestX;
+            while (parent[y, x].Y != y || parent[y, x].X != x)
+            {
+                _points.Add(new Pos(y, x));
+                Pos pos = parent[y, x];
+                y = pos.Y;
+                x = pos.X;
+            }
+
+            _points.Add(new Pos(y, x));
+            _points.Reverse();
+        }
+
+        #region BFS 너비 우선 탐색
         //너비 우선 탐색(길찾기)
         void BFS()
         {
@@ -55,28 +174,19 @@ namespace Algorithm
             int[] foundX = new int[4] { 0, -1, 0, 1 };
 
             int[,] found = new int[_board.Size, _board.Size]; //길을 한번 찾았는지 확인 하는변수
-            int[,] found2 = new int[_board.Size, _board.Size];
             int[,] distance = new int[_board.Size, _board.Size]; //목적지 깊이 저장
             Pos[,] parent = new Pos[_board.Size, _board.Size]; //현재 위치의 전 위치를 저장
-            Pos[,] parent2 = new Pos[_board.Size, _board.Size];
 
             Queue<Pos> que = new Queue<Pos>();
-            Queue<Pos> que2 = new Queue<Pos>();
             List<Pos> list = new List<Pos>();
 
             int nowY = PosY;
             int nowX = PosX;
 
-            int nowY2 = PosY;
-            int nowX2 = PosX;
-
             parent[nowY, nowX] = new Pos(nowY, nowX);
-            parent2[nowY, nowX] = new Pos(nowY, nowX);
             distance[nowY, nowX] = 0;
             que.Enqueue(new Pos(nowY, nowX));
-            que2.Enqueue(new Pos(nowY, nowX));
             found[nowY, nowX] = 1;
-            found2[nowY, nowX] = 1;
 
             parent[nowY, nowX] = new Pos(nowY, nowX);
 
@@ -85,49 +195,25 @@ namespace Algorithm
             while (_board.DestY != nowY || _board.DestY != nowX)
             {
                 Pos temp = que.Dequeue();
-                nowY = temp.PosY;
-                nowX = temp.PosX;
+                nowY = temp.Y;
+                nowX = temp.X;
 
                 for (int i = 0; i < 4; i++)
                 {
                     Pos tempPos = new Pos(nowY + foundY[i], nowX + foundX[i]);
-                    if (_board.Tile[tempPos.PosY, tempPos.PosX] != Board.TileType.Empty)
+                    if (_board.Tile[tempPos.Y, tempPos.X] != Board.TileType.Empty)
                         continue;
-                    if (found[tempPos.PosY, tempPos.PosX] == 1)
+                    if (found[tempPos.Y, tempPos.X] == 1)
                         continue;
 
-                    que.Enqueue(new Pos(tempPos.PosY, tempPos.PosX));
-                    parent[tempPos.PosY, tempPos.PosX] = temp;
-                    found[tempPos.PosY, tempPos.PosX] = 1;
-                    distance[tempPos.PosY, tempPos.PosX] = distance[nowY, nowX] + 1;
+                    que.Enqueue(new Pos(tempPos.Y, tempPos.X));
+                    parent[tempPos.Y, tempPos.X] = temp;
+                    found[tempPos.Y, tempPos.X] = 1;
+                    distance[tempPos.Y, tempPos.X] = distance[nowY, nowX] + 1;
 
                     //Debug.WriteLine($"현재 Y :{nowY.ToString()},X{nowX.ToString()} :"  + $"다음 Y :{tempPos.PosY.ToString()},X{tempPos.PosX.ToString()}");
                 }
                 count++;
-            }
-
-            while (que2.Count!= 0)
-            {
-                Pos temp = que2.Dequeue();
-                nowY2 = temp.PosY;
-                nowX2 = temp.PosX;
-
-                for (int i = 0; i < 4; i++)
-                {
-                    Pos tempPos = new Pos(nowY2 + foundY[i], nowX2 + foundX[i]);
-                    if (_board.Tile[tempPos.PosY, tempPos.PosX] != Board.TileType.Empty)
-                        continue;
-                    if (found2[tempPos.PosY, tempPos.PosX] == 1)
-                        continue;
-
-                    que2.Enqueue(new Pos(tempPos.PosY, tempPos.PosX));
-                    parent2[tempPos.PosY, tempPos.PosX] = temp;
-                    found2[tempPos.PosY, tempPos.PosX] = 1;
-                    //distance[tempPos.PosY, tempPos.PosX] = distance[PosY, PosX] + 1;
-
-                    //Debug.WriteLine($"현재 Y :{nowY.ToString()},X{nowX.ToString()} :" + $"다음 Y :{tempPos.PosY.ToString()},X{tempPos.PosX.ToString()}");
-                }
-                count2++;
             }
 
             Debug.WriteLine(count);
@@ -138,28 +224,12 @@ namespace Algorithm
             while (nowY != PosY || nowX != PosX)
             {
                 Pos temp = parent[nowY, nowX];
-                nowY = temp.PosY;
-                nowX = temp.PosX;
+                nowY = temp.Y;
+                nowX = temp.X;
 
                 _points.Add(new Pos(nowY, nowX));
             }
             _points.Reverse();
-
-            //int y = _board.DestY;
-            //int x = _board.DestX;
-
-            //while (parent2[y,x].PosY != y || parent2[y, x].PosX != x)
-            //{
-            //    _points.Add(new Pos(y, x));
-
-            //    Pos temp = parent2[y, x];
-            //    y = temp.PosY;
-            //    x = temp.PosX;
-
-            //}
-
-            //_points.Add(new Pos(y,x));
-            //_points.Reverse();
         }
 
 
@@ -186,26 +256,26 @@ namespace Algorithm
 
             parent[nowY, nowX] = new Pos(nowY, nowX);
 
-           
+
 
             while (que.Count != 0)
             {
                 Pos temp = que.Dequeue();
-                nowY = temp.PosY;
-                nowX = temp.PosX;
+                nowY = temp.Y;
+                nowX = temp.X;
 
                 for (int i = 0; i < 4; i++)
                 {
                     Pos tempPos = new Pos(nowY + foundY[i], nowX + foundX[i]);
-                    if (_board.Tile[tempPos.PosY, tempPos.PosX] != Board.TileType.Empty)
+                    if (_board.Tile[tempPos.Y, tempPos.X] != Board.TileType.Empty)
                         continue;
-                    if (found[tempPos.PosY, tempPos.PosX] == 1)
+                    if (found[tempPos.Y, tempPos.X] == 1)
                         continue;
 
-                    que.Enqueue(new Pos(tempPos.PosY, tempPos.PosX));
-                    parent[tempPos.PosY, tempPos.PosX] = temp;
-                    found[tempPos.PosY, tempPos.PosX] = 1;
-                    distance[tempPos.PosY, tempPos.PosX] = distance[PosY, PosX] + 1;
+                    que.Enqueue(new Pos(tempPos.Y, tempPos.X));
+                    parent[tempPos.Y, tempPos.X] = temp;
+                    found[tempPos.Y, tempPos.X] = 1;
+                    distance[tempPos.Y, tempPos.X] = distance[PosY, PosX] + 1;
 
                     //Debug.WriteLine($"현재 Y :{nowY.ToString()},X{nowX.ToString()} :" + $"다음 Y :{tempPos.PosY.ToString()},X{tempPos.PosX.ToString()}");
                 }
@@ -216,20 +286,22 @@ namespace Algorithm
             int y = _board.DestY;
             int x = _board.DestX;
 
-            while (parent[y, x].PosY != y || parent[y, x].PosX != x)
+            while (parent[y, x].Y != y || parent[y, x].X != x)
             {
                 _points.Add(new Pos(y, x));
 
                 Pos temp = parent[y, x];
-                y = temp.PosY;
-                x = temp.PosX;
+                y = temp.Y;
+                x = temp.X;
 
             }
 
             _points.Add(new Pos(y, x));
             _points.Reverse();
         }
+        #endregion
 
+        #region 우수법칙
         //우수 법칙
         void rightHandle()
         {
@@ -268,50 +340,30 @@ namespace Algorithm
 
             }
         }
+        #endregion
 
         const int MOVE_TICK = 100;
         int _sumTick = 0;
-        int indexCount = 0;
+        //int indexCount = 0;
+        int _lastIndex = 0;
         public void Update(int deltaTick)
         {
+            if (_lastIndex >= _points.Count)
+            {
+                _lastIndex = 0;
+                _points.Clear();
+                _board.Initialize(_board.Size, this);
+                Initalize(1, 1, _board);
+            }
+
             _sumTick += deltaTick;
             if (_sumTick >= MOVE_TICK)
             {
                 _sumTick = 0;
 
-                if (indexCount >= _points.Count)
-                    return;
-
-                PosY = _points[indexCount].PosY;
-                PosX = _points[indexCount].PosX;
-                //switch (randod.Next(0, 5))
-                //{
-                //    case 1: //상
-                //        if (PosY - 1 > 0 && _board.Tile[PosY - 1, PosX] == Board.TileType.Empty)
-                //        {
-                //            PosY -= 1;
-                //        }
-                //        break;
-                //    case 2: //하
-                //        if (PosY + 1 <= _board.Size && _board.Tile[PosY + 1, PosX] == Board.TileType.Empty)
-                //        {
-                //            PosY += 1;
-                //        }
-                //        break;
-                //    case 3: //좌
-                //        if (PosX - 1 > 0 && _board.Tile[PosY, PosX - 1] == Board.TileType.Empty)
-                //        {
-                //            PosX -= 1;
-                //        }
-                //        break;
-                //    case 4: //우
-                //        if (PosX + 1 <= _board.Size && _board.Tile[PosY, PosX + 1] == Board.TileType.Empty)
-                //        {
-                //            PosX += 1;
-                //        }
-                //        break;
-                //}
-                indexCount++;
+                PosY = _points[_lastIndex].Y;
+                PosX = _points[_lastIndex].X;
+                _lastIndex++;
             }
         }
     }

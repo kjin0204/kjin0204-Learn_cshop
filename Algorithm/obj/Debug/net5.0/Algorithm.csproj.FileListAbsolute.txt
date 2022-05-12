@@ -37,7 +37,6 @@ D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.runtimeconfig.dev.json
 D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.dll
 D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\ref\Algorithm.dll
 D:\4.learn\Algorithm\Algorithm\bin\Debug\net5.0\Algorithm.pdb
-D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.AssemblyReference.cache
 D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.GeneratedMSBuildEditorConfig.editorconfig
 D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfoInputs.cache
 D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.AssemblyInfo.cs
@@ -46,3 +45,4 @@ D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.dll
 D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\ref\Algorithm.dll
 D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.pdb
 D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.genruntimeconfig.cache
+D:\4.learn\Algorithm\Algorithm\obj\Debug\net5.0\Algorithm.csproj.AssemblyReference.cache

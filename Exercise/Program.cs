@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Exercise
 {
@@ -56,7 +57,7 @@ namespace Exercise
                 int closest = Int32.MaxValue;
                 int now = -1;
 
-                for(int i =0; i < 6; i++)
+                for (int i = 0; i < 6; i++)
                 {
                     // 이미 방문한 정점은 스킵
                     if (visited[i])
@@ -78,7 +79,7 @@ namespace Exercise
                 Console.WriteLine(now);
 
                 //방문한 정점과 인접한 정점들을 조사해서 상황에 따라 발견한 최단거리를 갱신
-                for(int next = 0; next< 6; next++)
+                for (int next = 0; next < 6; next++)
                 {
                     //연결되어있지않으면 스킵
                     if (adj[now, next] == -1)
@@ -88,7 +89,7 @@ namespace Exercise
                         continue;
 
                     //새로 조사된 정점의 최단거리를 계산한다.
-                    int nextDist = distance[now] + adj[now,next];
+                    int nextDist = distance[now] + adj[now, next];
 
                     if (distance[next] >= nextDist)
                     {
@@ -135,7 +136,7 @@ namespace Exercise
                 now = q.Dequeue();
                 Console.WriteLine(now);
 
-                for(int next = 0; next < 6; next++)
+                for (int next = 0; next < 6; next++)
                 {
                     if (found[next])
                         continue;
@@ -283,13 +284,114 @@ namespace Exercise
 
     }
 
+
+    class PriorityQueue<T> where T : IComparable<T>
+    {
+        List<T> heap = new List<T>();
+
+        public void Push(T data)
+        {
+            heap.Add(data);
+            int _now = heap.Count - 1;
+
+            while (_now > 0)
+            {
+                int _next = (_now - 1) / 2;
+
+                if (heap[_next].CompareTo(heap[_now]) > 0)
+                    break;
+
+                T temp = heap[_next];
+                heap[_next] = heap[_now];
+                heap[_now] = temp;
+
+                _now = _next;
+            }
+        }
+
+        public T Pop()
+        {
+            if (heap.Count == 0)
+                throw new Exception("꺼낼 데이터가 없습니다.");
+
+            //반환할 데이터
+            T _returnValue = heap[0];
+
+            //마지막 데이터를 루트로 이동
+            int _lastIndex = heap.Count - 1;
+            heap[0] = heap[_lastIndex];
+            heap.RemoveAt(_lastIndex); //마지막 데이터 삭제
+
+            _lastIndex--;
+
+            int _now = 0;
+            while (true)
+            {
+                int _left = (_now * 2) + 1;
+                int _right = (_now * 2) + 2;
+                int _next = _now;
+                //왼쪽값이 현재값보다 크면, 왼쪽으로 이동
+                if (_left <= _lastIndex && heap[_left].CompareTo(heap[_now]) > 0)
+                    _next = _left;
+
+                //오른값이 현재값(왼쪽 이동 포함) 보다 크면, 오른쪽으로 이동
+                if (_right <= _lastIndex && heap[_right].CompareTo(heap[_next]) > 0)
+                    _next = _right;
+
+                if (_next == _now)
+                    break;
+
+                T temp = heap[_next];
+                heap[_next] = heap[_now];
+                heap[_now] = temp;
+
+                _now = _next;
+            }
+
+            return _returnValue;
+
+
+        }
+
+        public int Count()
+        {
+            return heap.Count;
+        }
+    }
+
+    class Knight : IComparable<Knight>
+    {
+        public int id { get; set; }
+
+        public int CompareTo(Knight other)
+        {
+            if (id == other.id)
+                return 0;
+            return id > other.id ? 1 : -1;
+        }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Graph graph = new Graph();
-            graph.Dijikstra(0);
+            //Console.WriteLine("Hello World!");
+            //Graph graph = new Graph();
+            //graph.Dijikstra(0);
+
+
+            PriorityQueue<Knight> q = new PriorityQueue<Knight>();
+            q.Push(new Knight() { id = 20 });
+            q.Push(new Knight() { id = 30 });
+            q.Push(new Knight() { id = 40 });
+            q.Push(new Knight() { id = 10 });
+            q.Push(new Knight() { id = 05 });
+
+            while (q.Count() != 0)
+            {
+                Console.WriteLine(q.Pop().id);
+            }
+            //int value = q.Pop();
         }
     }
 }
